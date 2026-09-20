@@ -62,3 +62,123 @@ Testimonials in `index.html` are clearly marked as placeholders (see the `<!-- P
 - Keyboard-focus styles are visible throughout.
 - The admission form validates required fields, shows inline errors, prevents duplicate submissions with a loading state, and announces success/error via `aria-live`.
 - No external JS frameworks — vanilla JS keeps the page light on low/mid-range mobile devices.
+
+# 📩 Formspree Enquiry Setup
+
+This project uses **Formspree** to handle admission/enquiry form submissions without requiring a custom backend.
+
+## 🚀 Setup Guide
+
+### Step 1 — Create a Formspree Account
+
+1. Visit [Formspree](https://formspree.io/)
+2. Click **Sign Up**.
+3. You can sign up using Google or GitHub.
+4. After logging in, click **New Form**.
+5. Give your form a name, for example:
+   `BrightPath Admission Enquiry`
+6. Enter the email address where you want to receive enquiry notifications.
+7. After creating the form, Formspree will provide an endpoint URL similar to:
+
+```text
+https://formspree.io/f/xxxxxxxx
+```
+
+### Step 2 — Add the Endpoint
+
+Add the Formspree endpoint to the `script.js` file:
+
+```js
+var FORM_ENDPOINT = 'https://formspree.io/f/xxxxxxxx';
+```
+
+Replace `xxxxxxxx` with your actual Formspree endpoint.
+
+### Step 3 — Verify Your Email
+
+After the first test submission, Formspree may send a confirmation/verification email to the configured email address.
+
+**Make sure to complete the verification process** so that form submissions can continue working correctly.
+
+---
+
+# 📊 How Enquiries Are Handled
+
+### Where are enquiries stored?
+
+Submitted enquiries are stored in the **Formspree dashboard** on Formspree's servers.
+
+Email notifications are also sent to the configured email address.
+
+### Will I receive an email for every enquiry?
+
+Yes. Formspree can send an email notification when a new enquiry is submitted.
+
+### Will the student receive an automatic confirmation email?
+
+The basic/free setup does **not automatically provide a student confirmation email**.
+
+After submission, the student will only see the website's configured success/thank-you message.
+
+Automatic email responses require additional Formspree features or another email/automation setup.
+
+### Are enquiries automatically saved to Google Sheets?
+
+No. Formspree does not automatically sync submissions to Google Sheets in the basic setup.
+
+For Google Sheets integration, you can later use:
+
+* Google Apps Script
+* Zapier
+* Make
+* Another backend/database solution
+
+### What happens if the notification email fails?
+
+The email is only a **notification mechanism**.
+
+The actual submission remains available in the Formspree dashboard, so an email delivery problem does not necessarily mean that the enquiry itself is lost.
+
+### Can enquiries be edited later?
+
+Formspree submissions are records rather than editable database entries.
+
+You can:
+
+* 👀 View submissions
+* 📥 Export submissions as CSV
+* 🗂️ Manage them through the Formspree dashboard
+
+However, direct editing of submitted records is not provided as a normal database-style feature.
+
+---
+
+# 🔮 Future Improvements
+
+The current Formspree setup is intended as a simple starting solution for a small institute.
+
+Possible future upgrades include:
+
+* ✅ Student automatic confirmation emails
+* ✅ Google Sheets integration
+* ✅ Custom admin dashboard
+* ✅ Search and filter enquiries
+* ✅ Edit/update student records
+* ✅ Proper database integration
+* ✅ Custom backend using Node.js / Firebase / Supabase
+
+## 💡 Current Architecture
+
+```text
+Student
+   ↓
+Website Admission Form
+   ↓
+Formspree
+   ├──→ Email Notification
+   └──→ Formspree Dashboard
+            ↓
+         CSV Export
+```
+
+**Formspree acts as the current backend for handling enquiry submissions, keeping the project simple and easy to deploy on GitHub Pages.**
